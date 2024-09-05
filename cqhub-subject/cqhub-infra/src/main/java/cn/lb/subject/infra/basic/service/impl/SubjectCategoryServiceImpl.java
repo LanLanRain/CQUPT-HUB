@@ -32,7 +32,7 @@ public class SubjectCategoryServiceImpl implements SubjectCategoryService {
      */
     @Override
     public SubjectCategory insert(SubjectCategory subjectCategory) {
-        if (log.isInfoEnabled()){
+        if (log.isInfoEnabled()) {
             log.info("SubjectCategoryController.add.subjectCategory:{}", JSONUtils.toJSONString(subjectCategory));
         }
 
@@ -48,7 +48,7 @@ public class SubjectCategoryServiceImpl implements SubjectCategoryService {
 
     @Override
     public int update(SubjectCategory subjectCategory) {
-        return 0;
+        return subjectCategoryDao.update(subjectCategory);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class SubjectCategoryServiceImpl implements SubjectCategoryService {
      */
     @Override
     public List<SubjectCategory> queryCategory(SubjectCategory subjectCategory) {
-        if (log.isInfoEnabled()){
+        if (log.isInfoEnabled()) {
             log.info("SubjectCategoryController.queryCategory.subjectCategory:{}", JSONUtils.toJSONString(subjectCategory));
         }
         List<SubjectCategory> subjectCategoryList = subjectCategoryDao.queryCategory(subjectCategory);

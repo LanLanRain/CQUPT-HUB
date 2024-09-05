@@ -64,15 +64,37 @@ public class SubjectCategoryDomainServiceImpl implements SubjectCategoryDomainSe
     }
 
 
+    /**
+     * 更新学科分类信息
+     *
+     * @param subjectCategoryBO 学科分类的业务对象
+     * @return 如果更新操作成功，则返回true；否则返回false
+     */
     @Override
     public Boolean update(SubjectCategoryBO subjectCategoryBO) {
-        return null;
+        if (log.isInfoEnabled()) {
+            log.info("SubjectCategoryController.update.request:{}", JSON.toJSONString(subjectCategoryBO));
+        }
+        SubjectCategory subjectCategory = SubjectCategoryConverter.INSTANCE.convertBOTOEntity(subjectCategoryBO);
+        int count = subjectCategoryService.update(subjectCategory);
+
+        return count > 0;
     }
 
+    /**
+     * 删除題目分类
+     *
+     * @param subjectCategoryBO 学科分类业务对象，包含要删除的学科分类的数据对象
+     * @return 删除操作是否成功
+     */
     @Override
     public Boolean delete(SubjectCategoryBO subjectCategoryBO) {
-        return null;
+        SubjectCategory subjectCategory = SubjectCategoryConverter.INSTANCE.convertBOTOEntity(subjectCategoryBO);
+        subjectCategory.setIsDeleted(IsDeletedFlagEnum.DELETE.getCode());
+        int count = subjectCategoryService.update(subjectCategory);
+        return count > 0;
     }
+
 
     @Override
     public List<SubjectCategoryBO> queryCategoryAndLabel(SubjectCategoryBO subjectCategoryBO) {
