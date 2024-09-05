@@ -11,5 +11,15 @@
 
     <artifactId>cqhub-applicaiton-controller</artifactId>
 
+    <dependencies>
+        <!-- 定义Spring Boot的Web启动依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>3.1.5</version>
+        </dependency>
+
+    </dependencies>
+
 
 </project>
