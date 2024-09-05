@@ -17,10 +17,21 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <version>3.1.5</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>cn.lb</groupId>
             <artifactId>cqhub-applicaiton-controller</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.lb</groupId>
+            <artifactId>cqhub-infra</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

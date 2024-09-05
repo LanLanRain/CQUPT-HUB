@@ -1,2 +1,51 @@
+# 配置服务器端口
 server:
   port: 9090
+
+spring:
+  datasource:
+    # 数据库用户名
+    username: root
+    # 数据库密码
+    password: MIIBVQIBADANBgkqhkiG9w0BAQEFAASCAT8wggE7AgEAAkEAiOb1l98ZtE4fIlCpV/IRIAEqIu+22SJnRsDrfDEuk0wBzyHZirmpZ1v2rHPy/OXdLPL28HleMPATJtmIlxjZ9wIDAQABAkAtGu9SzOJCqjS
+    # 数据库连接URL
+    url: jdbc:mysql://123.60.49.130:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    # 指定数据源类型为Druid
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      # 初始连接池大小
+      initial-size: 20
+      # 最小连接池大小
+      min-idle: 20
+      # 连接属性，用于配置加密等特性
+      connectionProperties: config.decrypt=true;config.decrypt.key=${publicKey};
+      # 最大连接池大小
+      max-active: 100
+      # 获取连接的最大等待时间
+      max-wait: 60000
+      # 配置 Druid 监控统计拦截的 Servlet
+      stat-view-servlet:
+        # 是否启用监控
+        enabled: true
+        # 访问路径前缀
+        url-pattern: /druid/*
+        # 监控页面的登录用户名
+        login-username: admin
+        # 监控页面的登录密码
+        login-password: 123456
+      # 配置 Druid 的各种过滤器
+      filter:
+        # 统计监控相关的配置
+        stat:
+          # 是否启用
+          enabled: true
+          # 慢查询阈值（毫秒）
+          slow-sql-millis: 2000
+          # 是否记录慢查询
+          log-slow-sql: true
+        # 防御恶意SQL注入的配置
+        wall:
+          enabled: true
+        # 配置 Druid 的配置文件
+        config:
+          enabled: true

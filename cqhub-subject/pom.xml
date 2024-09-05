@@ -12,19 +12,14 @@
     <properties>
         <!-- 定义Maven编译器的源代码版本 -->
         <maven.compiler.source>17</maven.compiler.source>
-
         <!-- 定义Maven编译器的目标代码版本 -->
         <maven.compiler.target>17</maven.compiler.target>
-
         <!-- 定义Maven编译器的版本 -->
         <maven.compiler.compilerVersion>17</maven.compiler.compilerVersion>
-
         <!-- 定义项目构建的源代码编码 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
         <!-- 定义项目报告的输出编码 -->
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
         <!-- 定义Java版本 -->
         <java.version>17</java.version>
     </properties>
@@ -52,6 +47,12 @@
             <type>pom</type>
             <!-- 设置依赖项的范围为import，表示这些依赖项用于导入其他依赖项 -->
             <scope>import</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
