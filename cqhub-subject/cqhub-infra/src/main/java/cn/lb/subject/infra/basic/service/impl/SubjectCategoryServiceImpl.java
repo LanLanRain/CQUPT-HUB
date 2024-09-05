@@ -56,9 +56,19 @@ public class SubjectCategoryServiceImpl implements SubjectCategoryService {
         return false;
     }
 
+    /**
+     * 根据条件查询主题分类列表
+     *
+     * @param subjectCategory 查询条件，包含要查询的主题分类的相关信息
+     * @return 返回一个包含所有匹配给定查询条件的主题分类的列表
+     */
     @Override
     public List<SubjectCategory> queryCategory(SubjectCategory subjectCategory) {
-        return List.of();
+        if (log.isInfoEnabled()){
+            log.info("SubjectCategoryController.queryCategory.subjectCategory:{}", JSONUtils.toJSONString(subjectCategory));
+        }
+        List<SubjectCategory> subjectCategoryList = subjectCategoryDao.queryCategory(subjectCategory);
+        return subjectCategoryList;
     }
 
     @Override

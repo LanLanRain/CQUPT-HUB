@@ -22,6 +22,56 @@
                 #{updateTime}, #{isDeleted})
     </insert>
 
+    <!--
+    查询分类信息
+    通过以下条件筛选subject_category表中的记录：
+    - id: 分类的唯一标识
+    - categoryName: 分类名称，非空字符串时作为筛选条件
+    - categoryType: 分类类型，非null时作为筛选条件
+    - imageUrl: 分类的图片URL，非空字符串时作为筛选条件
+    - parentId: 分类的父ID，非null时作为筛选条件
+    - createdBy: 创建者，非空字符串时作为筛选条件
+    - createdTime: 创建时间，非null时作为筛选条件
+    - updateBy: 更新者，非空字符串时作为筛选条件
+    - updateTime: 更新时间，非null时作为筛选条件
+    - isDeleted: 是否被删除的标志，非null时作为筛选条件
+    -->
+    <select id="queryCategory" resultMap="SubjectCategoryMap">
+        select * from subject_category
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="categoryName != null and categoryName != ''">
+                and category_name = #{categoryName}
+            </if>
+            <if test="categoryType != null">
+                and category_type = #{categoryType}
+            </if>
+            <if test="imageUrl != null and imageUrl != ''">
+                and image_url = #{imageUrl}
+            </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+            <if test="createdBy != null and createdBy != ''">
+                and created_by = #{createdBy}
+            </if>
+            <if test="createdTime != null">
+                and created_time = #{createdTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="isDeleted != null">
+                and is_deleted = #{isDeleted}
+            </if>
+        </where>
+    </select>
+
     <!--查询单个-->
     <select id="queryById" resultMap="SubjectCategoryMap">
         select id,
@@ -72,41 +122,7 @@
         </where>
     </select>
 
-    <select id="queryCategory" resultMap="SubjectCategoryMap">
-        select * from subject_category
-        <where>
-            <if test="id != null">
-                and id = #{id}
-            </if>
-            <if test="categoryName != null and categoryName != ''">
-                and category_name = #{categoryName}
-            </if>
-            <if test="categoryType != null">
-                and category_type = #{categoryType}
-            </if>
-            <if test="imageUrl != null and imageUrl != ''">
-                and image_url = #{imageUrl}
-            </if>
-            <if test="parentId != null">
-                and parent_id = #{parentId}
-            </if>
-            <if test="createdBy != null and createdBy != ''">
-                and created_by = #{createdBy}
-            </if>
-            <if test="createdTime != null">
-                and created_time = #{createdTime}
-            </if>
-            <if test="updateBy != null and updateBy != ''">
-                and update_by = #{updateBy}
-            </if>
-            <if test="updateTime != null">
-                and update_time = #{updateTime}
-            </if>
-            <if test="isDeleted != null">
-                and is_deleted = #{isDeleted}
-            </if>
-        </where>
-    </select>
+
 
     <select id="querySubjectCount" resultType="java.lang.Integer">
         select count(distinct subject_id)
