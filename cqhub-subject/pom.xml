@@ -16,5 +16,22 @@
         <module>cqhub-starter</module>
     </modules>
 
+    <!-- 定义项目依赖关系 -->
+    <dependencies>
+        <!-- Spring Boot 依赖项 -->
+        <dependency>
+            <!-- 定义了依赖项的组ID -->
+            <groupId>org.springframework.boot</groupId>
+            <!-- 定义了依赖项的artifactID -->
+            <artifactId>spring-boot-dependencies</artifactId>
+            <!-- 定义了依赖项的版本 -->
+            <version>3.1.5</version>
+            <!-- 指定依赖项的类型为pom，表示这是一个项目对象模型文件 -->
+            <type>pom</type>
+            <!-- 设置依赖项的范围为import，表示这些依赖项用于导入其他依赖项 -->
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+
 
 </project>
