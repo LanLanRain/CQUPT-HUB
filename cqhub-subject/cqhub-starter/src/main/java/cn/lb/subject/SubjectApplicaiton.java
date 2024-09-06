@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 /**
  * 刷题微服务启动类
+ *
  * @author RainSoul
  * @create 2024-09-05
  */

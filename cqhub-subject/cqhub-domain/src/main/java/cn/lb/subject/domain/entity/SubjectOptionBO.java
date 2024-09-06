@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * 题目DTO
+ * 题目答案BO
  *
  * @author RainSoul
  * @create 2024-09-05
