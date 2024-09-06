@@ -23,7 +23,7 @@ public class SubjectInfoServiceImpl implements SubjectInfoService {
 
     @Override
     public SubjectInfo queryById(Long id) {
-        subjectInfoService.queryById(id);
+        subjectInfoDao.queryById(id);
         return null;
     }
 
