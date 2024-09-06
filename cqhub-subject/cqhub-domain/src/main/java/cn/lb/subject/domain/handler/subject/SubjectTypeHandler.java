@@ -25,6 +25,6 @@ public interface SubjectTypeHandler {
    /**
     * 查询题目信息
     */
-   SubjectOptionBO query(SubjectInfoBO subjectInfoBO);
+   SubjectOptionBO query(int subjectId);
 
 }
