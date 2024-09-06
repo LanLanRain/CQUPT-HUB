@@ -1,6 +1,7 @@
 package cn.lb.subject.infra.basic.service.impl;
 
 import cn.lb.subject.infra.basic.entity.SubjectBrief;
+import cn.lb.subject.infra.basic.mapper.SubjectBriefDao;
 import cn.lb.subject.infra.basic.service.SubjectBriefService;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
