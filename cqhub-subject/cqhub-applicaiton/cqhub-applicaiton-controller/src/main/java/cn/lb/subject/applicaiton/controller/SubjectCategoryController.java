@@ -1,7 +1,9 @@
 package cn.lb.subject.applicaiton.controller;
 
 import cn.lb.subject.applicaiton.convert.SubjectCategoryDTOConverter;
+import cn.lb.subject.applicaiton.convert.SubjectLabelDTOConverter;
 import cn.lb.subject.applicaiton.dto.SubjectCategoryDTO;
+import cn.lb.subject.applicaiton.dto.SubjectLabelDTO;
 import cn.lb.subject.common.entity.Result;
 import cn.lb.subject.domain.entity.SubjectCategoryBO;
 import cn.lb.subject.domain.service.SubjectCategoryDomainService;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -84,7 +87,7 @@ public class SubjectCategoryController {
      * @param subjectCategoryDTO 包含分类id的请求对象
      * @return 包含二级分类信息的响应结果
      */
-    @PostMapping
+    @PostMapping("/queryCategoryByPrimary")
     public Result<List<SubjectCategoryDTO>> queryCategoryByPrimary(@RequestBody SubjectCategoryDTO subjectCategoryDTO) {
         try {
             if (log.isInfoEnabled()) {
@@ -123,6 +126,16 @@ public class SubjectCategoryController {
         }
     }
 
+    /**
+     * 更新学科分类信息
+     *
+     * 本方法接收一个包含学科分类信息的HTTP POST请求，尝试更新系统中的相应学科分类记录
+     * 它通过SubjectCategoryDTO对象接收更新信息，然后将这个信息转换为SubjectCategoryBO对象，
+     * 最终调用subjectCategoryDomainService层的update方法进行更新操作
+     *
+     * @param subjectCategoryDTO 包含更新后的学科分类信息的数据传输对象
+     * @return 返回一个Result对象，该对象包含一个布尔值，表示更新操作是否成功
+     */
     @PostMapping("/update")
     public Result<Boolean> update(@RequestBody SubjectCategoryDTO subjectCategoryDTO) {
         try {
@@ -131,6 +144,7 @@ public class SubjectCategoryController {
             }
             SubjectCategoryBO subjectCategoryBO = SubjectCategoryDTOConverter.INSTANCE.convertDTOTOBO(subjectCategoryDTO);
             Boolean result = subjectCategoryDomainService.update(subjectCategoryBO);
+
             return Result.success(result);
         } catch (Exception e) {
             log.error("SubjectCategoryController.update.error:{}", e.getMessage(), e);
@@ -138,7 +152,35 @@ public class SubjectCategoryController {
         }
     }
 
+    /**
+     * 查询分类及其标签
+     * 该方法用于根据分类信息查询对应的分类及其关联的标签列表
+     *
+     * @param subjectCategoryDTO 分类请求对象，包含查询所需的分类信息
+     * @return 返回查询到的分类及其关联的标签列表
+     */
+    @PostMapping("/queryCategoryAndLabel")
+    public Result<List<SubjectCategoryDTO>> queryCategoryAndLabel(@RequestBody SubjectCategoryDTO subjectCategoryDTO) {
+        try {
+            if (log.isInfoEnabled()) {
+                log.info("SubjectCategoryController.queryCategoryAndLabel.request:{}", JSON.toJSONString(subjectCategoryDTO));
+            }
+            Preconditions.checkNotNull(subjectCategoryDTO.getId(), "分类id不能为空");
+            SubjectCategoryBO subjectCategoryBO = SubjectCategoryDTOConverter.INSTANCE.convertDTOTOBO(subjectCategoryDTO);
+            List<SubjectCategoryBO> subjectCategoryBOList = subjectCategoryDomainService.queryCategoryAndLabel(subjectCategoryBO);
+            List<SubjectCategoryDTO> subjectCategoryDTOList = new LinkedList<>();
+            // 遍历BO列表，将每个BO及其关联的标签转换为DTO并添加到结果列表
+            subjectCategoryBOList.forEach(bo -> {
+                SubjectCategoryDTO dto = SubjectCategoryDTOConverter.INSTANCE.convertBOTODTO(bo);
+                List<SubjectLabelDTO> subjectLabelDTOS = SubjectLabelDTOConverter.INSTANCE.convertBOToLabelDTOList(bo.getLabelBOList());
+                dto.setLabelDTOList(subjectLabelDTOS);
+                subjectCategoryDTOList.add(dto);
+            });
 
-
-
+            return Result.success(subjectCategoryDTOList);
+        } catch (Exception e) {
+            log.error("SubjectCategoryController.queryCategoryAndLabel.error:{}", e.getMessage(), e);
+            return Result.fail("查询分类失败");
+        }
+    }
 }

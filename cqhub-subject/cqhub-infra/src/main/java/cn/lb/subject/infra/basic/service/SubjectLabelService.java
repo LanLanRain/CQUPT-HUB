@@ -44,7 +44,19 @@ public interface SubjectLabelService {
      */
     boolean deleteById(Long id);
 
+    /**
+     * 批量查询
+     *
+     * @param labelIdList
+     * @return
+     */
     List<SubjectLabel> batchQueryById(List<Long> labelIdList);
 
+    /**
+     * 条件查询
+     *
+     * @param subjectLabel
+     * @return
+     */
     List<SubjectLabel> queryByCondition(SubjectLabel subjectLabel);
 }

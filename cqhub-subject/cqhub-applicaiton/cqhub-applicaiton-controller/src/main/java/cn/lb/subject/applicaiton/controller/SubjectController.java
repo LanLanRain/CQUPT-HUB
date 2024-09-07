@@ -60,20 +60,11 @@ public class SubjectController {
             Preconditions.checkNotNull(subjectInfoDTO.getSubjectScore(), "题目分数不能为空");
             Preconditions.checkArgument(!CollectionUtils.isEmpty(subjectInfoDTO.getCategoryIds()), "分类id不能为空");
             Preconditions.checkArgument(!CollectionUtils.isEmpty(subjectInfoDTO.getLabelIds()), "标签id不能为空");
-
-            // 将DTO（数据传输对象）转换为BO（业务对象）
             SubjectInfoBO subjectInfoBO = SubjectInfoDTOConverter.INSTANCE.convertDTOTOB(subjectInfoDTO);
-
-            // 将题目的选项列表DTO转换为业务对象列表
             List<SubjectAnswerBO> subjectAnswerBOList = SubjectAnswerDTOConverter.INSTANCE.convertDTOTOBOList(subjectInfoDTO.getOptionList());
-
-            // 将转换后的选项列表设置回题目业务对象
             subjectInfoBO.setOptionList(subjectAnswerBOList);
-
-            // 调用领域服务进行题目信息的添加操作
             subjectInfoDomainService.add(subjectInfoBO);
 
-            // 返回操作成功的结果
             return Result.success(true);
         } catch (Exception e) {
             log.error("SubjectController.add.error:{}", e.getMessage(), e);

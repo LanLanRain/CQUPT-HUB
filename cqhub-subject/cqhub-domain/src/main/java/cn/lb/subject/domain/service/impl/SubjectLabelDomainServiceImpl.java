@@ -72,28 +72,46 @@ public class SubjectLabelDomainServiceImpl implements SubjectLabelDomainService 
         return count > 0;
     }
 
+    /**
+     * 根据分类ID查询标签
+     *
+     * @param subjectLabelBO
+     * @return
+     */
     @Override
     public List<SubjectLabelBO> queryLabelByCategoryId(SubjectLabelBO subjectLabelBO) {
-        //如果当前分类是1级分类，则查询所有标签
+        // 根据分类ID查询对应的标签
+        // 如果当前分类为1级分类，则查询所有标签
         SubjectCategory subjectCategory = subjectCategoryService.queryById(subjectLabelBO.getCategoryId());
         if(CategoryTypeEnum.PRIMARY.getCode() == subjectCategory.getCategoryType()){
+            // 创建SubjectLabel对象并设置分类ID，用于查询
             SubjectLabel subjectLabel = new SubjectLabel();
             subjectLabel.setCategoryId(subjectLabelBO.getCategoryId());
+            // 查询符合条件的标签列表
             List<SubjectLabel> labelList = subjectLabelService.queryByCondition(subjectLabel);
+            // 将查询结果转换为Business Object列表并返回
             List<SubjectLabelBO> labelResultList = SubjectLabelConverter.INSTANCE.convertLabelToBoList(labelList);
             return labelResultList;
         }
+        // 获取当前分类ID
         Long categoryId = subjectLabelBO.getCategoryId();
+        // 创建SubjectMapping对象并设置分类ID和删除状态，用于查询映射关系
         SubjectMapping subjectMapping = new SubjectMapping();
         subjectMapping.setCategoryId(categoryId);
         subjectMapping.setIsDeleted(IsDeletedFlagEnum.UN_DELETE.getCode());
+        // 查询标签与分类的映射关系列表
         List<SubjectMapping> mappingList = subjectMappingService.queryLabelId(subjectMapping);
+        // 如果映射关系列表为空，则返回空列表
         if (CollectionUtils.isEmpty(mappingList)) {
             return Collections.emptyList();
         }
+        // 从映射关系列表中提取标签ID列表
         List<Long> labelIdList = mappingList.stream().map(SubjectMapping::getLabelId).collect(Collectors.toList());
+        // 根据标签ID列表批量查询标签信息
         List<SubjectLabel> labelList = subjectLabelService.batchQueryById(labelIdList);
+        // 创建Business Object列表用于存储结果
         List<SubjectLabelBO> boList = new LinkedList<>();
+        // 遍历标签列表，转换并添加到BO列表
         labelList.forEach(label -> {
             SubjectLabelBO bo = new SubjectLabelBO();
             bo.setId(label.getId());
@@ -102,6 +120,7 @@ public class SubjectLabelDomainServiceImpl implements SubjectLabelDomainService 
             bo.setSortNum(label.getSortNum());
             boList.add(bo);
         });
+        // 返回转换后的BO列表
         return boList;
     }
 }

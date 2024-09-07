@@ -33,6 +33,8 @@ public class SubjectLabelController {
 
     /**
      * 新增标签
+     * @param subjectLabelDTO
+     * @return
      */
     @PostMapping("/add")
     public Result<Boolean> add(@RequestBody SubjectLabelDTO subjectLabelDTO) {
