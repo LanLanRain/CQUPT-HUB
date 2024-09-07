@@ -15,10 +15,12 @@
     </properties>
 
     <dependencies>
+        <!-- 引入Spring Boot Web启动器 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <version>3.0.5</version>
+            <!-- 排除默认的日志启动器，以便后续引入其他日志系统 -->
             <exclusions>
                 <exclusion>
                     <artifactId>spring-boot-starter-logging</artifactId>
@@ -26,40 +28,42 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- 引入MinIO客户端库 -->
         <dependency>
             <groupId>io.minio</groupId>
             <artifactId>minio</artifactId>
             <version>8.2.0</version>
         </dependency>
+        <!-- 引入Lombok库，用于简化对象类代码 -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.30</version>
         </dependency>
+        <!-- 引入Spring Boot Log4j2日志启动器 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-log4j2</artifactId>
             <version>3.0.5</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-config -->
+        <!-- 引入阿里云Nacos配置管理启动器 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
             <version>2022.0.0.0</version>
-        </dependency><!-- https://mvnrepository.com/artifact/com.alibaba.cloud/spring-cloud-starter-alibaba-nacos-discovery -->
+        </dependency>
+        <!-- 引入阿里云Nacos服务发现启动器 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
             <version>2022.0.0.0</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-bootstrap -->
+        <!-- 引入Spring Cloud启动引导依赖 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
             <version>4.0.0</version>
         </dependency>
-
     </dependencies>
-
 
 </project>

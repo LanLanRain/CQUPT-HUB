@@ -12,7 +12,7 @@ import java.io.InputStream;
 import java.util.List;
 
 /**
- * 文件存储适配器
+ * minio存储实现
  *
  * @author RainSoul
  * @create 2024-09-07

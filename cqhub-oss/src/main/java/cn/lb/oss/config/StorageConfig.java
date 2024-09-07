@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
  * @create 2024-09-07
  */
 @Configuration
+@RefreshScope
 public class StorageConfig {
 
     @Value("${storage.service.type}")

@@ -7,4 +7,3 @@ minio:
 #storage:
 #  service:
 #    type: minio
-
