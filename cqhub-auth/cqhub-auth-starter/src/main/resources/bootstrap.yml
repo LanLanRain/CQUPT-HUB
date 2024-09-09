@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: cqhub-auth
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config:
+        server-addr: 123.60.49.130:8848
+        username: nacos
+        password: nacos
+        prefix: ${spring.application.name}
+        group: DEFAULT_GROUP
+        namespace:
+        file-extension: yaml
+      discovery:
+        server-addr: 123.60.49.130:8848
+        username: nacos
+        password: nacos
+        enable: true
