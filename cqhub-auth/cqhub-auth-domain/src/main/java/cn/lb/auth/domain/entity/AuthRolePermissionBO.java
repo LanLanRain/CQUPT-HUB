@@ -1,17 +1,18 @@
-package cn.lb.auth.application.dto;
+package cn.lb.auth.domain.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
- * @description: 角色权限关联表
+ * 角色权限表
  *
  * @author RainSoul
- * @create 2024-09-08
+ * @create 2024-09-11
  */
 @Data
-public class AuthRolePermissionDTO {
+public class AuthRolePermissionBO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
