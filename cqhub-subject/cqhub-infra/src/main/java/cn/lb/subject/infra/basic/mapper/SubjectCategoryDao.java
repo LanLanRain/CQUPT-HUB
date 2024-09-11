@@ -1,6 +1,7 @@
 package cn.lb.subject.infra.basic.mapper;
 
 import cn.lb.subject.infra.basic.entity.SubjectCategory;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  * @author RainSoul
  * @create 2024-09-05
  */
+@Mapper
 public interface SubjectCategoryDao {
     /**
      * 通过ID查询单条数据

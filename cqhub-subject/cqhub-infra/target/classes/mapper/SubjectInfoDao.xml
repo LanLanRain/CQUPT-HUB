@@ -82,6 +82,30 @@
         limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
+
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        <!--
+        选择键元素，用于获取最后一次插入操作的ID
+        此元素在插入操作之后执行，用于获取刚插入记录的主键值
+        resultType: 指定返回值的类型，这里是Java的Long类型
+        keyProperty: 指定将返回值设置到哪个属性上，这里是"id"
+        order: 指定此元素是在插入操作之前还是之后执行，"AFTER"表示在插入之后
+        -->
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            <!--
+            SQL语句，选择最后一次插入操作的ID
+            LAST_INSERT_ID()函数用于获取最后一次插入操作的ID
+            -->
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+
+        insert into subject_info(subject_name, subject_difficult, settle_name, subject_type, subject_score,
+        subject_parse, created_by, created_time, update_by, update_time, is_deleted)
+        values (#{subjectName}, #{subjectDifficult}, #{settleName}, #{subjectType}, #{subjectScore}, #{subjectParse},
+        #{createdBy}, #{createdTime}, #{updateBy}, #{updateTime}, #{isDeleted})
+    </insert>
+
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)
@@ -216,17 +240,6 @@
         limit 0,1
     </select>
 
-
-    <!--新增所有列-->
-    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
-            SELECT LAST_INSERT_ID()
-        </selectKey>
-        insert into subject_info(subject_name, subject_difficult, settle_name, subject_type, subject_score,
-        subject_parse, created_by, created_time, update_by, update_time, is_deleted)
-        values (#{subjectName}, #{subjectDifficult}, #{settleName}, #{subjectType}, #{subjectScore}, #{subjectParse},
-        #{createdBy}, #{createdTime}, #{updateBy}, #{updateTime}, #{isDeleted})
-    </insert>
 
     <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
         insert into subject_info(subject_name, subject_difficult, settle_name, subject_type, subject_score,

@@ -5,6 +5,7 @@ import cn.lb.subject.infra.basic.mapper.SubjectLabelDao;
 import cn.lb.subject.infra.basic.service.SubjectLabelService;
 import jakarta.annotation.Resource;
 import org.mapstruct.Mapper;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * @create 2024-09-06
  */
 @Mapper
+@Service
 public class SubjectLabelServiceImpl implements SubjectLabelService {
 
     @Resource
