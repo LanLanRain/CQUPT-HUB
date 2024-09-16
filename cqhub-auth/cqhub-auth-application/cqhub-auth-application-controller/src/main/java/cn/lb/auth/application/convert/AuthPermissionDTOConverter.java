@@ -1,7 +1,7 @@
 package cn.lb.auth.application.convert;
 
-import cn.lb.auth.application.dto.AuthRolePermissionDTO;
-import cn.lb.auth.domain.entity.AuthRolePermissionBO;
+import cn.lb.auth.application.dto.AuthPermissionDTO;
+import cn.lb.auth.domain.entity.AuthPermissionBO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -12,8 +12,7 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface AuthPermissionDTOConverter {
 
-    AuthRolePermissionDTOConverter INSTANCE = Mappers.getMapper(AuthRolePermissionDTOConverter.class);
+    AuthPermissionDTOConverter INSTANCE = Mappers.getMapper(AuthPermissionDTOConverter.class);
 
-    AuthRolePermissionBO convertDTOTOBO(AuthRolePermissionDTO authRolePermissionDTO);
-
+    AuthPermissionBO convertDTOTOBO(AuthPermissionDTO authPermissionDTO);
 }
